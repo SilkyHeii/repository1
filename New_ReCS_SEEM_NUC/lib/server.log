@@ -1,0 +1,21 @@
+info: Server initialized
+
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Connected
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Handshake successful: 192.168.11.59:37658 (0) connected to /talk
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"login","userid":"24","message":"","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Handling payload: é
+notice: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Close frame received
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37658 (0): Disconnected
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Connected
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Handshake successful: 192.168.11.59:37660 (0) connected to /talk
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"login","userid":"24","message":"","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Handling payload: é
+notice: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Close frame received
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37660 (0): Disconnected
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Connected
+info: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handshake successful: 192.168.11.59:37662 (0) connected to /talk
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"login","userid":"24","message":"","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"talk","userid":"24","message":"fdsa","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"talk","userid":"24","message":"fdsa","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"talk","userid":"24","message":"dddd","receiveruserids":[],"receivergroupids":[]}
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37662 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"talk","userid":"24","message":"aaaa","receiveruserids":[],"receivergroupids":[]}

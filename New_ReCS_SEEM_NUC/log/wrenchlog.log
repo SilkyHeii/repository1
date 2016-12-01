@@ -1,0 +1,1 @@
+debug: Wrench\ConnectionManager: Wrench\Connection: 192.168.11.59:37030 (0): Handling payload: {"ticket":"*2FC3C9AB95EA16C381E50F8FCDCF4E25F223D62B","action":"talk","userid":"24","message":"fdsa","receiveruserids":[],"receivergroupids":[]}

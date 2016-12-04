@@ -1,0 +1,48 @@
+<meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1" />
+<link rel="stylesheet" media="all" type="text/css" href="style.css" />
+<!-- ※デフォルトのスタイル（style.css） -->
+<link rel="stylesheet" media="all" type="text/css" href="tablet.css" />
+<!-- ※タブレット用のスタイル（tablet.css） -->
+<link rel="stylesheet" media="all" type="text/css" href="smart.css" />
+<!-- ※スマートフォン用のスタイル（smart.css） -->
+
+
+
+
+
+<center>
+<% if @ks != "true" %>
+	<font size="8" color="#FA8072"> ReCS/SEEM </font>
+
+	<br>
+
+<% else %>
+
+	<font size="8" color="#00b400"> ReCS/SEEM </font>
+
+	<br>
+
+<% end %>
+
+<p style="color: Red"><%= @error %></p>
+<%= form_tag :action => 'auth' do %>
+  <div class="field">
+    <label>ログインID：<br />
+    <%= text_field_tag(:userid, '', { :size => 20 }) %></label>
+  </div>
+  <div class="field">
+    <label>パスワード：<br />
+    <%= password_field_tag(:password, '', { :size => 20 }) %></label>
+  </div>
+  <%= hidden_field_tag :referer, flash[:referer] %>
+  <%= hidden_field_tag :deviceWidth,"0" %>
+  <%= submit_tag 'ログイン' %>
+<% end %>
+</center>
+
+
+
+<script>
+        var deviceWidth = screen.width
+        document.getElementById('deviceWidth').value=deviceWidth
+</script>

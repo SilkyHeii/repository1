@@ -1,0 +1,384 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+
+
+
+
+<style type="text/css">
+table.timeline {
+empty-cells: hide;
+}
+
+</style>
+
+
+<table class="timeline"  border="5" align="right" valign="baseline" >
+
+<tr><th ></th><th width=55 height=30 >時間</th><th width=55 colspan="10">内容</th></tr>
+
+
+<!-- ------------------------------------------------------------------------- -->
+<tr><td  rowspan=28></td><td align="center" bgcolor="#FA8072">欠席</td>
+<% for j in 0..@events.size-1%>
+<% if @event.start_at.year == @events[j].start_at.year && @event.start_at.month == @events[j].start_at.month &&  @event.start_at.day == @events[j].start_at.day %>
+
+<% if @events[j].event == "欠席" %>
+<td align=center height=27.5 bgcolor="#FAE0D2"><%= @events[j].group %></td>
+<% end %>
+<% end %>
+<% end %></tr>
+
+<!-- ------------------------------------------------------------------------- -->
+
+<tr><td align="center" bgcolor="#FFB066">遅刻</td>
+<% for j in 0..@events.size-1%>
+<% if @event.start_at.year == @events[j].start_at.year && @event.start_at.month == @events[j].start_at.month &&  @event.start_at.day == @events[j].start_at.day %>
+
+<% if @events[j].event == "遅刻" %>
+<td align=center height=27.5 bgcolor="#FFEEB2"><%= @events[j].group  %></td>
+<% end %>
+<% end %>
+<% end %></tr>
+<!-- ------------------------------------------------------------------------- -->
+
+<tr><td align="center" bgcolor="#F0A0F0">終日</td>
+<% for j in 0..@events.size-1%>
+<% if @event.start_at.year == @events[j].start_at.year && @event.start_at.month == @events[j].start_at.month &&  @event.start_at.day == @events[j].start_at.day %>
+
+<% if @events[j].event != "遅刻" && @events[j].event != "欠席"  %>
+<% if @events[j].start_at.hour == 0 && @events[j].start_at.min == 0 && @events[j].end_at.hour == 0 && @events[j].end_at.min == 0%>
+<td align=center height=27.5 bgcolor="#F0D0F0"><%=  @events[j].event  %></td>
+<% end %>
+<% end %>
+<% end %>
+<% end %></tr>
+
+
+<!-- ------------------------------------------------------------------------- -->
+
+<% for i in 9..21 %>
+
+<tr>
+<td rowspan=2  height=55 align="right" valign="top"><%= i %>:00</td>
+
+<% for j in 0..@events.size-1%>
+
+<% if @event.start_at.year == @events[j].start_at.year && @event.start_at.month == @events[j].start_at.month &&  @event.start_at.day == @events[j].start_at.day %>
+<!-- ------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<% if i == @events[j].start_at.hour && @events[j].start_at.min>=0 && @events[j].start_at.min<=29 %>
+
+<% if (@events[j].start_at == @events[j].end_at) && (@events[j].event != "遅刻" && @events[j].event != "欠席") %>
+
+<td height=27.5 rowspan=1 bgcolor="#FFFFE0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+
+
+<!-- ------------------------------------------------------------------------- -->
+<% if (@events[j].end_at.min>=31 && @events[j].end_at.min<=59) %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+2 %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+2 %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+2 %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td  height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+2 %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td  height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+2 %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+
+<!-- ------------------------------------------------------------------------- -->
+<% elsif @events[j].end_at.min==0 %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+
+<!-- ------------------------------------------------------------------------- -->
+<% elsif @events[j].end_at.min>=1 && @events[j].end_at.min<=30 %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+<!-- ------------------------------------------------------------------------- -->
+
+<% end %>
+
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+</tr>
+
+
+
+
+
+<!-- ------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------- -->
+
+
+
+
+<tr>
+
+
+<% for j in 0..@events.size-1%>
+
+<% if @event.start_at.year == @events[j].start_at.year && @event.start_at.month == @events[j].start_at.month &&  @event.start_at.day == @events[j].start_at.day %>
+<!-- ------------------------------------------------------------------------- -->
+
+
+
+<% if i == @events[j].start_at.hour && @events[j].start_at.min>=30 && @events[j].start_at.min<=59 %>
+
+<% if (@events[j].start_at == @events[j].end_at) && (@events[j].event != "遅刻" && @events[j].event != "欠席") %>
+
+<td height=27.5 rowspan=1 bgcolor="#FFFFE0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+
+
+<!-- ------------------------------------------------------------------------- -->
+<% if (@events[j].end_at.min>=31 && @events[j].end_at.min<=59) %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td  height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td  height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)+1 %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+
+<!-- ------------------------------------------------------------------------- -->
+<% elsif @events[j].end_at.min==0 %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)-1 %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)-1 %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)-1 %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)-1 %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour)-1 %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+
+<!-- ------------------------------------------------------------------------- -->
+<% elsif @events[j].end_at.min>=1 && @events[j].end_at.min<=30 %>
+
+<% if @events[j].event == "ミーティング" %>
+
+<% if @events[j].group == "Web班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#ddFFFF" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+ <% elsif @events[j].group == "Net班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#EEEE88" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% elsif @events[j].group == "Grid班" %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#90EE90" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% else %>
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#F0A0F0" align=center >
+<%= @events[j].group + @events[j].event %></td>
+
+<% end %>
+
+<% elsif @events[j].event != "遅刻" && @events[j].event != "欠席" %>
+
+<td height=27.5 rowspan="<%= 2*(@events[j].end_at.hour-@events[j].start_at.hour) %>"bgcolor="#cccccc" align=center >
+<%= @events[j].group + @events[j].event %></td> 
+
+
+<% end %>
+<!-- ------------------------------------------------------------------------- -->
+
+<% end %>
+
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+</tr>
+
+
+<% end %>
+</table></p>
+
+<!-- ------------------------------------------------------------------------- -->
+
+
+
+<p>
+  <b>単位:</b>
+  <%= @event.group %>
+</p>
+
+<p>
+  <b>内容:</b>
+  <%= @event.event %>
+</p>
+
+<p>
+  <b>開始時間:</b>
+  <%= @event.start_at %>
+</p>
+
+<p>
+  <b>終了時間:</b>
+  <%= @event.end_at %>
+</p>
+
+
+<p>
+  <b>詳細:</b>
+  <%= @event.comment %>
+</p>
+
+    <%= link_to 'Edit', edit_event_path(@event) %> 
+    <%= link_to 'Back', calendar_path %>
+    <%= link_to 'Manage', events_path %>
+    <%= link_to 'Destroy', @event, confirm: '削除しますか?', method: :delete %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

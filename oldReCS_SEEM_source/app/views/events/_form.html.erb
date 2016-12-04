@@ -1,0 +1,114 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <body onLoad="entryChange1();">
+
+  <div class="field">
+    <%= f.label :名前 %>:<%= @event.name %>
+    <%= f.hidden_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :内容 %><br />
+    <%= f.select(:event,['遅刻','欠席','ミーティング','輪講','その他']  ,{},{:onchange => "entryChange1();"}) %>
+  </div>
+
+
+<%= javascript_tag do %>
+
+  function entryChange1(){
+  radio = document.getElementsByName('event[event]')
+
+
+  if(radio[0].value == 'その他')
+  {
+    document.getElementById('ev_other').style.display = ""
+  }
+  else
+  {
+    document.getElementById('ev_other').style.display = "none" 
+　}
+
+
+
+  if(radio[0].value == '遅刻' || radio[0].value == '欠席')
+  {
+    document.getElementById('ev_unit').style.display = "none"
+    document.getElementById('ev_start').style.display = "none"
+    document.getElementById('ev_end').style.display = "none"
+  }
+  else
+  {
+    document.getElementById('ev_unit').style.display = ""
+    document.getElementById('ev_start').style.display = ""
+    document.getElementById('ev_end').style.display = ""
+　}
+
+}
+
+<% end %>
+
+
+  <div class="field" ; id ="ev_other"  style= "display: none;" >
+    <%= f.label :内容を入力 %><br />
+    <%= f.text_field :eventother %>
+  </div>
+
+
+  <div class="field" ; id ="ev_unit"  style= "display: none;" >
+    <%= f.label :単位 %><br />
+    <label><%= f.radio_button :group, '個人' ,{:checked=>true} %>個人　</label>
+    <label><%= f.radio_button :group, '全体' %>全体　</label>
+    <label><%= f.radio_button :group, 'Grid班' %>Grid班　</label>
+    <label><%= f.radio_button :group, 'Net班' %>Net班　</label>
+    <label><%= f.radio_button :group, 'Web班' %>Web班　</label>
+<br>
+    <label><%= f.radio_button :group, 'B4' %>B4　</label>
+    <label><%= f.radio_button :group, 'M1' %>M1　</label>
+    <label><%= f.radio_button :group, 'M2' %>M2　</label>
+  </div>
+
+
+  <div class="field"; id ="ev_start"  style= "display: none;" >
+    <%= f.label :開始時刻%><br />
+    <%= f.datetime_select :start_at , :default => @time, :minute_step =>5%>
+  </div>
+
+
+  <div class="field"; id ="ev_end"  style= "display: none;" >
+    <%= f.label :終了時刻 %><br />
+    <%= f.datetime_select :end_at , :default => @time, :minute_step => 5 %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :詳細 %><br />
+    <%= f.text_area :comment %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メール送信 %><br />
+    <label><%= f.radio_button :mail, 'yes',{:checked=>true}%>送信する　</label>
+    <label><%= f.radio_button :mail, 'no' %>送信しない　</label>
+
+  </div>
+
+<br>
+<br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+
+<% end %>

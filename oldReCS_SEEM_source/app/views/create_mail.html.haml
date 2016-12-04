@@ -1,0 +1,13 @@
+%h1 New mailer
+= form_tag(controller: 'extra', action: 'sendmail') do
+  = hidden_field :event, :name
+  = hidden_field :event, :event
+  = hidden_field :event, :group
+  = label      :event, :eventother
+  = text_field :event, :eventother
+  %br
+  = label     :event, :comment
+  = text_area :event, :comment
+  %br
+  = submit_tag 'send'
+= link_to 'Back', calendar_path

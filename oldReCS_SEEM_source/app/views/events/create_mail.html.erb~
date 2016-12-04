@@ -1,0 +1,23 @@
+<h1>メール作成</h1>
+<%= form_tag(controller: 'extra', action: 'sendmail') do %>
+  <%= hidden_field :event, :name %>
+  <%= hidden_field :event, :event %>
+  <%= hidden_field :event, :group %>
+  <div class="field">
+      <%= label :event, :件名 %><br />
+      <%= text_field :event, :eventother %>
+  </div> 
+     
+  <div class="field">
+      <%= label     :event, :メール内容 %><br />
+      <%= text_area :event, :comment %>
+  </div>
+  
+  <div class="action">
+      <%= submit_tag '送信' %>
+  </div>
+  
+<% end %>
+
+
+<%= link_to '戻る', calendar_path %>

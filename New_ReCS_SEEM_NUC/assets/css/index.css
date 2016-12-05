@@ -26,9 +26,9 @@
 	overflow: hidden;
 }
 
-div.draggable-column{
+div.column{
 	float: left;
-	width: 50%;
+	width: 33%;
 }
 /* clearfix */
 #draggable-columns:before,

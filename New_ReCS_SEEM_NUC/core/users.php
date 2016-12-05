@@ -5,7 +5,7 @@
 	require_once("authorize.php");
 
 	function RegisterUser($db,$username,$password){
-			
+
 			if(!$db){
 				error_log("RegisterUser: SQL ERROR",0);
 				die();
@@ -66,7 +66,7 @@
 	function GetUserPasswordGroups($db,$userid){
 		$groups=GetUserGroups($db,$userid);
 		$result=array();
-	
+
 		foreach($groups as $group){
 			$temp=mysql_query(
 				"select id,name,description from groups where id=$group and password<>''"
@@ -95,6 +95,26 @@
 		}
 		return $result;
 	}
+	//add_20161204
+	function GetUserPlacement($db,$userid){
+		if(!$db){
+			error_log("GetUserPlacement:SQL ERROR",0);
+			die();
+		}
+		if(!mysql_select_db("chat_production",$db)){
+			error_log("GetUserPlacement:DB ERROR",0);
+			die();
+		}
+		$placements=mysql_query(
+			"select placement from users where id=$userid"
+			);
+		$placement=mysql_fetch_assoc($placements);
+		if(!$placement) {
+			error_log("GetUserPlacement: INVALID PLACEMENT",0);
+			die();
+		}
+		return $placement["placement"];
+	}
 	function ContainsUserGroup($db,$userid,$groupid){
 		if(!$db){
 			error_log("ContainsUserGroup:DB ERROR",0);
@@ -113,10 +133,14 @@
 		}else{
 			return true;
 		}
-	}	
+	}
 	function SetUserGroups($db,$userid,$groupArray){
 		if(!$db) {
 			error_log("SetUserGroups: SQL ERROR",0);
+			die();
+		}
+		if(!mysql_select_db("chat_production",$db)){
+			error_log("SetUserGroups:SQL ERROR",0);
 			die();
 		}
 		$groupsStr =",";
@@ -136,27 +160,38 @@
 			"update users set address=$address where id=$userid"
 		);
 	}
+	//20161204_add
+	function SetUserPlacement($db,$userid,$placement){
+		//var_dump($placement);
+		if(!$db){
+			error_log("SetUserPlacement:SQL ERROR",0);
+			die();
+		}
+		mysql_query(
+			"update users set placement='$placement' where id=$userid"
+		);
+	}
 	function GetUserName($db,$userid){
 		if(!$db) {
 			error_log("GetUserName: SQL ERROR",0);
 			die();
 		}
-		
-		if(!mysql_select_db("chat_production",$db)){ 
+
+		if(!mysql_select_db("chat_production",$db)){
 			error_log("GetUserName: DB SELECT ERROR",0);
 			die();
 		}
 		$usernames=mysql_query(
 			"select name from users where id=$userid"
 			);
-			
+
 		$username=mysql_fetch_assoc($usernames);
-		
+
 		if(!$username) {
 			error_log("GetUserName: INVALID USER",0);
 			die();
 		}
-		
+
 		return $username["name"];
 	}
 	function GetUserMailAddress($db,$userid){
@@ -164,21 +199,21 @@
 			error_log("GetUserMailAddress: SQL ERROR",0);
 			die();
 		}
-		
-		if(!mysql_select_db("chat_production",$db)){ 
+
+		if(!mysql_select_db("chat_production",$db)){
 			error_log("GetUserMailAddress: DB SELECT ERROR",0);
 			die();
 		}
 		$usermailaddresss=mysql_query(
 			"select address from users where id=$userid"
 		);
-		
+
 		$usermailaddress=mysql_fetch_assoc($usermailaddresss);
-		
+
 		if(!$usermailaddress){
 			error_log("GetUserMailAddress:INVALID USER",0);
 		}
-		
+
 		return $usermailaddress["address"];
 	}
 	function SetUserName($db,$userid,$username){
@@ -186,7 +221,7 @@
 			error_log("SetUserName: SQL ERROR",0);
 			die();
 		}
-		if(!mysql_select_db("chat_production",$db)){ 
+		if(!mysql_select_db("chat_production",$db)){
 			error_log("SetUserName: DB SELECT ERROR",0);
 			die();
 		}
@@ -263,6 +298,6 @@
 		while($talkbutton = mysql_fetch_assoc($talkbuttons)) {
 			$result []= $talkbutton;
 		}
-		return $result;	
+		return $result;
 	}
 ?>

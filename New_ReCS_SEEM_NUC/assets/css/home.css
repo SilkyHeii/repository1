@@ -52,4 +52,40 @@
 .column.over {
   border: 2px dashed #000;
 }
+
+
+/* ▼(A)表示領域全体 */
+div.tabbox { margin: 0px; padding: 0px; width: 800px; }
+
+/* ▼(B)タブ部分 */
+p.tabs { margin: 0px; padding: 0px; }
+p.tabs a {
+   /* ▼(B-2)リンクをタブのように見せる */
+   display: block; width: 5em; float: left;
+   margin: 0px 1px 0px 0px; padding: 3px;
+   text-align: center;
+   border-radius: 12px 12px 0px 0px; /* 角を丸くする */
+}
+/* ▼(B-3)各タブの配色 */
+p.tabs a.tab1 { background-color: blue;  color: white; }
+p.tabs a.tab2 { background-color: #aaaa00; color:white;}
+p.tabs a.tab3 { background-color: red;   color: white; }
+p.tabs a:hover { color: yellow; }
+
+/* ▼(C)タブ中身のボックス */
+div.tab {
+   /* ▼(C-2)ボックス共通の装飾 */
+   height: 150px;
+   overflow: auto;
+}
+/* ▼(C-3)各ボックスの配色 */
+div#tab1 { border: 2px solid blue; background-color: #ccffff; }
+div#tab2 { border: 2px solid #aaaa00; background-color: #ffffcc; }
+div#tab3 { border: 2px solid red; background-color: #ffcccc; }
+div.tab p { margin: 0.5em; }
+
+.clear{
+    clear: left;
+}
+
 </style>

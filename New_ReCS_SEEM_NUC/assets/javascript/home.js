@@ -1,18 +1,21 @@
 // Full example
-(function() {
-  var id_ = 'columns-full';
-  var cols_ = document.querySelectorAll('#' + id_ + ' .column');
+  //alert("function start");
+  var id_ = 'columns';
+  var cols_ = document.querySelectorAll('#columns .column');
+  var element=document.getElementById("drag1");
   var dragSrcEl_ = null;
+  document.getElementById('tab1').style.display = 'block';
+  document.getElementById('tab2').style.display = 'block';
+  document.getElementById('tab3').style.display = 'block';
 
-  this.handleDragStart = function(e) {
+   function handleDragStart(e) {
+    //alert("dragstart");
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
-
     dragSrcEl_ = this;
-
     // this/e.target is the source node.
-    this.addClassName('moving');
-  };
+    this.classList.add('moving');
+  }
 
   this.handleDragOver = function(e) {
     if (e.preventDefault) {
@@ -25,12 +28,13 @@
   };
 
   this.handleDragEnter = function(e) {
-    this.addClassName('over');
+      //alert("dragenter");
+    this.classList.add('over');
   };
 
   this.handleDragLeave = function(e) {
     // this/e.target is previous target element.
-    this.removeClassName('over');
+    this.classList.remove('over');
   };
 
   this.handleDrop = function(e) {
@@ -58,18 +62,18 @@
   this.handleDragEnd = function(e) {
     // this/e.target is the source node.
     [].forEach.call(cols_, function (col) {
-      col.removeClassName('over');
-      col.removeClassName('moving');
+      col.classList.remove('over');
+      col.classList.remove('moving');
     });
   };
 
-  [].forEach.call(cols_, function (col) {
-    col.setAttribute('draggable', 'true');  // Enable columns to be draggable.
-    col.addEventListener('dragstart', this.handleDragStart, false);
+  var cols = document.querySelectorAll('#columns .column');
+
+  [].forEach.call(cols, function(col) {
+    col.addEventListener('dragstart', handleDragStart, false);
     col.addEventListener('dragenter', this.handleDragEnter, false);
     col.addEventListener('dragover', this.handleDragOver, false);
     col.addEventListener('dragleave', this.handleDragLeave, false);
     col.addEventListener('drop', this.handleDrop, false);
     col.addEventListener('dragend', this.handleDragEnd, false);
   });
-})();

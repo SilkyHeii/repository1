@@ -5,7 +5,7 @@
 		</title>
 		<meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1" />
 		<!-- ※デフォルトのスタイル（style.css） -->
-		<link rel="stylesheet" media="all" type="text/css" href="./assets/css/style.css" />
+		<link rel="stylesheet" media="all" type="text/css" href="./assets/css/pc.css" />
 		<!-- ※タブレット用のスタイル（tablet.css） -->
 		<link rel="stylesheet" media="all" type="text/css" href="./assets/css/tablet.css" />
 		<!-- ※スマートフォン用のスタイル（smart.css） -->
@@ -19,10 +19,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="./lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	</head>
 	<script src="assets/javascript/cookie.js"></script>
 	<script src="assets/javascript/htmlEscape.js"></script>
-	<script src="assets/javascript/draggable.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="assets/css/index.css">
 	<body>
 		<h3>New ReCS/SEEM written by PHP</h3>
@@ -121,8 +122,20 @@
 			$canReadEvent=VerifyTicket($db,$ticket,"read_schedule");
 		?>
 
-<div id="draggable-columns" class="row">
-	<div class="draggable-column col-lg-6 container-fluid" draggable="true">
+
+		<form name="partsselect">
+			<select name="parts">
+				<option value="calendar">カレンダー</option>
+				<option value="chat">チャット</option>
+				<option value="WB">ホワイトボード</option>
+			</select>
+			<input type="button" value="追加" onclick="hyoji1(0)">
+			<input type="button" value="削除" onclick="hyoji1(1)">
+			<input type="button" value="callIndex" onclick="callIndex()">
+		</form>
+
+<div id="columns" class="row" >
+	<div id="calendar" class="column col-lg-6 container-fluid" draggable="true">
 		<?php if($canReadEvent): ?>
 			<br>
 			<!--
@@ -268,7 +281,7 @@
 		</div>
 		<?php endif; ?>
 
-		<div class="draggable-column col-lg-6 container-fluid" draggable="true">
+	<div id="chat" class="column col-lg-6 container-fluid" draggable="true" >
 		<?php if($canTalk): ?>
 
 			<br>
@@ -600,11 +613,92 @@
 			</div>
 		<?php endif; ?>
 	</div>
+
+	<div id="WB" class="column container-fluid" draggable="true">
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	</div>
 </div>
 
 
 		<?php if(!$canLogin): ?>
 			welcome to new ReCS/SEEM. In this site , you can chatting with account.
 		<?php endif; ?>
+
+
+		<script src="assets/javascript/draggable.js"></script>
+		<script type="text/javascript">
+		function callIndex(){
+			var calendarindex = $(".column").index($("#calendar"))
+			var chatindex = $(".column").index($("#chat"))
+			var WBindex = $(".column").index($("#WB"))
+			//alert("calendarindex="+calendarindex);
+			//alert("chatindex="+chatindex);
+			//alert("WBindex="+WBindex);
+		}
+		</script>
+		<script type="text/javascript">
+		var placementIndexArray = new Array(3);
+		function hyoji1(num)
+		{
+		  var partsname = document.partsselect.parts.value;
+		  if (num == 0)
+		  {
+		    document.getElementById(partsname).style.display="block";
+			var column = document.getElementsByClassName("column");
+			[].forEach.call(column,function(col){
+					col.style.width="33%";
+			});
+
+			if(document.getElementById("calendar").style.display != "none"){
+				var calendarindex = $(".column").index($("#calendar"))
+			}else{
+				var calendarindex = null;
+			}
+			if(document.getElementById("chat").style.display != "none"){
+				var chatindex = $(".column").index($("#chat"))
+			}else{
+				var chatindex=null;
+			}
+			if(document.getElementById("WB").style.display != "none"){
+				var WBindex = $(".column").index($("#WB"))
+			}else{
+				var WBindex=null;
+			}
+			if(calendarindex!=null){placementIndexArray[calendarindex]="calendar";}
+			if(chatindex!=null){placementIndexArray[chatindex]="chat";}
+			if(WBindex!=null){placementIndexArray[WBindex]="WB";}
+			//alert(placementIndexArray);
+
+		  }
+		  else
+		  {
+		    document.getElementById(partsname).style.display="none";
+			var column = document.getElementsByClassName("column");
+			[].forEach.call(column,function(col){
+					col.style.width="50%";
+			});
+			if(document.getElementById("calendar").style.display != "none"){
+				var calendarindex = $(".column").index($("#calendar"))
+			}else{
+				var calendarindex = null;
+			}
+			if(document.getElementById("chat").style.display != "none"){
+				var chatindex = $(".column").index($("#chat"))
+			}else{
+				var chatindex=null;
+			}
+			if(document.getElementById("WB").style.display != "none"){
+				var WBindex = $(".column").index($("#WB"))
+			}else{
+				var WBindex=null;
+			}
+			if(calendarindex!=null){placementIndexArray[calendarindex]="calendar";}
+			if(chatindex!=null){placementIndexArray[chatindex]="chat";}
+			if(WBindex!=null){placementIndexArray[WBindex]="WB";}
+			//alert(placementIndexArray);
+
+		  }
+		}
+		</script>
 	</body>
 </html>
